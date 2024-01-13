@@ -1,0 +1,26 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Battleship game with a Test Driven Development approach",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurenchamps/battleship.git"
+  },
+  "author": "Lauren Champs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laurenchamps/battleship/issues"
+  },
+  "homepage": "https://github.com/laurenchamps/battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
+}
