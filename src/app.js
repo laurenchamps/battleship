@@ -42,16 +42,32 @@ class GameBoard {
         this.ships = [];
     }
 
-    placeShip(row, column, length, name, isHorizontal) {
+    placeShip(x, y, length, name, isHorizontal) {
         const ship = new Ship(name, length);
 
-        this.grid[row][column].shipName = name;
+        // Ship must be able to fit in grid based on length and orientation
+        if (isHorizontal && y > this.columns - length) return 'Invalid position';
 
-        for (let i = 1; i < length; i++) {
+        if (!isHorizontal && x > this.rows - length) return 'Invalid position'
+        
+        // Ship must not overlap with another ship
+        if (isHorizontal) {
+            for (let i = 0; i < length; i++) {
+                if (this.grid[x][y + i].shipName) return 'Ships cannot overlap';
+            }
+        }
+
+        if (!isHorizontal) {
+            for (let i = 0; i < length; i++) {
+                if (this.grid[x + i][y].shipName) return 'Ships cannot overlap';
+            }
+        }
+
+        for (let i = 0; i < length; i++) {
             if (isHorizontal) {
-                this.grid[row][column + i].shipName = name;
+                this.grid[x][y + i].shipName = name;
             } else {
-                this.grid[row + i][column].shipName = name;
+                this.grid[x + i][y].shipName = name;
             }
         }
 
@@ -112,6 +128,7 @@ class Player {
         gameboard.receiveAttack(x, y);
     }
 }
+
 
 export { Ship };
 export { GameBoard };
