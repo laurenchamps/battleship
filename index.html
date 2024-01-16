@@ -3,24 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer type="module" src="src/app.js"></script>
     <title>Battleship</title>
 </head>
 <body>
-    <main>
+    <header>
         <h1>Battleship</h1>
-        <section>
-            <h2 class="name" id="name--0">Challenger</h2>
-            <div class="grid grid_challenger" id="grid--0"></div>
+    </header>
+    <main>
+        <section class="gameboard_container">
+            <section class="player player--0">
+                <h2 class="name" id="name--0">Challenger</h2>
+                <div class="grid grid_challenger" id="grid--0">
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2 class="name" id="name--1">Computer</h2>
+                <div class="grid grid_computer" id="grid--1">
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                    <div class="grid_row">
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                        <div class="grid_square"></div>
+                    </div>
+                </div>
+            </section>
         </section>
-        <section>
-            <h2 class="name" id="name--1">Computer</h2>
-            <div class="grid grid_computer" id="grid--1"></div>
-        </section>
-
         <button class="btn btn--new">🔄 New game</button>
     </main>
+    <footer>Built by <a href="https://github.com/laurenchamps">Lauren Champs</a>, 2024</footer>
     
 </body>
 </html>
