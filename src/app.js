@@ -26,7 +26,8 @@ class Ship {
 }
 
 class GameBoard {
-    constructor(rows, columns) {
+    constructor(player, rows, columns) {
+        this.player = player;
         this.rows = rows;
         this.columns = columns;
         this.grid = [];
@@ -128,6 +129,39 @@ class Player {
         gameboard.receiveAttack(x, y);
     }
 }
+
+/////////////////////////
+// APPLICATION
+
+const gridChalEl = document.querySelector('#grid--challenger');
+const gridCompEl = document.querySelector('#grid--computer');
+
+class App {
+    constructor() {
+
+    }
+
+    createGameBoardGrid(gameboard) {
+
+        for (let i = 0; i < (gameboard.rows); i++) {
+            const parentEl = document.querySelector(`#grid--${gameboard.player}`);
+
+            const gridRow = document.createElement('div');
+            gridRow.classList.add('grid_row');
+            parentEl.appendChild(gridRow);
+            for (let j = 0; j < gameboard.columns; j++) {
+                const gridSquare = document.createElement('div');
+                gridSquare.classList.add('grid_square');
+                gridSquare.dataset.x = i;
+                gridSquare.dataset.y = j;
+                
+                gridRow.appendChild(gridSquare);
+            }
+
+        }
+    }
+}
+
 
 
 export { Ship };
