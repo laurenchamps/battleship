@@ -88,3 +88,15 @@ footer {
     border-radius: 25px;
     border: none;
 }
+
+.hit {
+    background-color: #e38ea7;
+}
+
+.sunk {
+    background-color: #b40539;
+}
+
+.miss {
+    background-color: #6ee295;
+}
