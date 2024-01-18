@@ -100,3 +100,13 @@ footer {
 .miss {
     background-color: #6ee295;
 }
+
+.modal {
+    max-width: 80%;
+    margin: 0 auto;
+    background-color: var(#dad8d8);
+    color: var(#fff);
+    border: none;
+    padding: 2rem;
+    top: 15%;
+}
