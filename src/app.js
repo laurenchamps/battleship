@@ -4,6 +4,7 @@ class Ship {
         this.length = length;
         this.coords = [];
         this.hits = 0;
+        this.isHorizontal = true;
     }
 
     hit() {
@@ -34,38 +35,60 @@ class GameBoard {
         this.ships = [];
     }
 
-    placeShip(x, y, length, name, isHorizontal) {
-        const ship = new Ship(name, length);
+    positionShip(ship, x, y) {
+        let allCoords = [];
+        // Ship cannot be positioned if it is too long to fit on the gameboard
+        if (ship.isHorizontal && (y + ship.length) > this.columns || !ship.isHorizontal && (x + ship.length > this.rows)) {
+            console.log('Ship is too long');
+            return allCoords;
+        }
 
+        if (ship.isHorizontal) {
+            for (let i = 0; i < ship.length; i++) {
+                allCoords.push([x, y + i]);
+            }
+        } else {
+            for (let i = 0; i < ship.length; i++) {
+                allCoords.push([x + i, y]);
+            }
+        }
+        return allCoords;
+    }
+
+    placeShip(ship, x, y) {
         // Ship must be able to fit in grid based on length and orientation
-        if (isHorizontal && y > this.columns - length) return 'Invalid position';
+        if (ship.isHorizontal && y > this.columns - ship.length) return 'Invalid position';
 
-        if (!isHorizontal && x > this.rows - length) return 'Invalid position'
+        if (!ship.isHorizontal && x > this.rows - ship.length) return 'Invalid position'
         
         // Ship must not overlap with another ship
-        if (isHorizontal) {
-            for (let i = 0; i < length; i++) {
-                if (this.grid[x][y + i].shipName) return 'Ships cannot overlap';
+        if (ship.isHorizontal) {
+            for (let i = 0; i < ship.length; i++) {
+                if (this.grid[x][y + i].shipName) {
+                    console.log('Ships are overlapping');
+                    return 'Ships cannot overlap';
+                }
             }
         }
 
-        if (!isHorizontal) {
-            for (let i = 0; i < length; i++) {
+        if (!ship.isHorizontal) {
+            for (let i = 0; i < ship.length; i++) {
                 if (this.grid[x + i][y].shipName) return 'Ships cannot overlap';
             }
         }
 
-        for (let i = 0; i < length; i++) {
-            if (isHorizontal) {
-                this.grid[x][y + i].shipName = name;
+        for (let i = 0; i < ship.length; i++) {
+            if (ship.isHorizontal) {
+                this.grid[x][y + i].shipName = ship.name;
                 ship.coords.push([x, y + i]);
             } else {
-                this.grid[x + i][y].shipName = name;
+                this.grid[x + i][y].shipName = ship.name;
                 ship.coords.push([x + i, y]);
             }
         }
 
         this.ships.push(ship);
+        return 'Success';
     }
 
     generateRandomCoords() {
@@ -147,9 +170,9 @@ class App {
 
     }
 
-    renderGameBoard(gameboard) {
+    renderGameBoard(gameboard, parentEl) {
         for (let i = 0; i < (gameboard.rows); i++) {
-            const parentEl = document.querySelector(`#grid--${gameboard.player}`);
+            // const parentEl = document.querySelector(`#grid--${gameboard.player}`);
 
             const gridRow = document.createElement('div');
             gridRow.classList.add('grid_row');
@@ -174,6 +197,13 @@ const computer = new Player('computer');
 const challengerGameBoard = new GameBoard('challenger', 10, 10);
 const computerGameBoard = new GameBoard('computer', 10, 10);
 
+// DOM elements
+const chalGridEl = document.querySelector('#grid--challenger');
+const compGridEl = document.querySelector('#grid--computer');
+const modalGridEl = document.querySelector('#grid--modal');
+const modal = document.querySelector('.modal');
+const modalHeading = modal.querySelector('.modal-heading');
+
 /* 
 ----- Ship types ------
 
@@ -184,40 +214,55 @@ Submarine: 3
 Destroyer: 2 
 */
 
+const ships = [['carrier', 5], ['patrol boat', 2], ['submarine', 3], ['battleship', 4], ['destroyer', 3]];
+
+const compShips = [];
+
+ships.forEach(ship => {
+    let compShip = new Ship(ship[0], ship[1]);
+
+    compShips.push(compShip);
+})
+
+console.log(compShips);
+
+
 const carrier = new Ship('carrier', 5);
-const patrolBoat = new Ship('patrolBoat', 2);
+const patrolBoat = new Ship('patrol boat', 2);
 const submarine = new Ship('submarine', 3);
 const battleship = new Ship('battleship', 4);
 const destroyer = new Ship('destroyer', 3);
 
 const shipTypes = [carrier, patrolBoat, submarine, battleship, destroyer];
 
-computerGameBoard.placeShip(0, 5, shipTypes[0].length, shipTypes[0].name, true);
-computerGameBoard.placeShip(3, 5, shipTypes[3].length, shipTypes[3].name , false);
-computerGameBoard.placeShip(6, 1, shipTypes[4].length, shipTypes[4].name, false);
-computerGameBoard.placeShip(8, 5, shipTypes[2].length, shipTypes[2].name, true);
-computerGameBoard.placeShip(2, 8, shipTypes[1].length, shipTypes[1].name, true);
-
-challengerGameBoard.placeShip(0, 5, shipTypes[0].length, shipTypes[0].name, true);
-challengerGameBoard.placeShip(0, 5, shipTypes[0].length, shipTypes[0].name, true);
-challengerGameBoard.placeShip(3, 5, shipTypes[3].length, shipTypes[3].name , false);
-challengerGameBoard.placeShip(6, 1, shipTypes[4].length, shipTypes[4].name, false);
-challengerGameBoard.placeShip(8, 5, shipTypes[2].length, shipTypes[2].name, true);
-challengerGameBoard.placeShip(2, 8, shipTypes[1].length, shipTypes[1].name, true);
-
 const app = new App;
 
-app.renderGameBoard(computerGameBoard);
-app.renderGameBoard(challengerGameBoard);
+app.renderGameBoard(computerGameBoard, compGridEl);
+app.renderGameBoard(challengerGameBoard, chalGridEl);
+
+compShips.forEach(ship => {
+    // Randomize ship's orientation
+    const random = Math.floor(Math.random() * 2);
+    random == 1 ? ship.isHorizontal = true : ship.isHorizontal = false;
+
+    let shipPlaced;
+
+    while (shipPlaced !== 'Success') {
+        shipPlaced = computerGameBoard.placeShip(ship, ...computerGameBoard.generateRandomCoords());
+    }
+})
+
+console.log(computerGameBoard);
 
 
-// DOM
-const chalGridEl = document.querySelector('#grid--challenger');
-const compGridEl = document.querySelector('#grid--computer');
-
-const displayAttack = function(targetCoords, result, gridElement) {    
+const displayAttack = function(targetCoords, result) {    
     // Get all grid square elements
-    const gridSquares = [...gridElement.querySelectorAll('.grid_square')];
+    const compGridSquares = [...compGridEl.querySelectorAll('.grid_square')];
+    const chalGridSquares = [...chalGridEl.querySelectorAll('.grid_square')];
+
+    let gridSquares;
+    activePlayer == 0 ? gridSquares = compGridSquares : gridSquares = chalGridSquares;
+    console.log(computerGameBoard);
 
     // Check if ship is sunk
     if (result[0] == 'sunk') {
@@ -250,9 +295,13 @@ compGridEl.addEventListener('click', function (e) {
     // Attack
     const result = challenger.attack(computerGameBoard, ...coords);
     // Display result of attack in grid
-    displayAttack(coords, result, compGridEl);
+    displayAttack(coords, result);
     // Set active player to opponent
     activePlayer = 1;
+
+    if (!computerGameBoard.hasActiveShips()) {
+        alert('You win!');
+    }
 
     // Take computer's turn
     if (activePlayer !== 1) return;
@@ -260,11 +309,95 @@ compGridEl.addEventListener('click', function (e) {
     const randomCoords = challengerGameBoard.generateRandomCoords();
     // Attack
     const compResult = computer.attack(challengerGameBoard, ...randomCoords);
-    // Display result of attack in grid
-    displayAttack(randomCoords, compResult, chalGridEl);
+    // Display result of attack in grid after 1 sec delay
+    setTimeout(() => {
+        displayAttack(randomCoords, compResult, chalGridEl);
+        activePlayer = 0;
+    }, 1000);
 
-    activePlayer = 0;
+    if (!challengerGameBoard.hasActiveShips()) {
+        alert('Computer wins');
+    }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const challengerShips = [...shipTypes];
+    const rotateBtn = modal.querySelector('.btn--rotate');
+    modalHeading.textContent = `Place your ${challengerShips[0].name}`;
+
+    modal.showModal();
+    app.renderGameBoard(challengerGameBoard, modalGridEl);
+
+    const modalGridSquares = [...modalGridEl.querySelectorAll('.grid_square')];
+
+    let allCoords;
+
+    modalGridSquares.forEach(square => {
+        square.addEventListener('mouseenter', (e) => {
+            // Get x-coordinates of first target
+            const coords = [+e.target.dataset.x, +e.target.dataset.y];
+
+            allCoords = challengerGameBoard.positionShip(challengerShips[0], ...coords);
+
+            // If ship is too long to fit on gameBoard, don't display
+            if (allCoords.length < 1) return;
+        
+            allCoords.forEach(coord => {
+                const el = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
+                el.classList.add('shipOutline');
+            })
+        })
+    })
+
+    modalGridSquares.forEach(square => {
+        square.addEventListener('mouseleave', () => {
+            allCoords.forEach(coord => {
+                const el = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
+                el.classList.remove('shipOutline');
+                allCoords = [];
+            })
+        })
+    })
+
+    modalGridSquares.forEach(square => {
+        square.addEventListener('click', (e) => {
+            const placeShip = challengerGameBoard.placeShip(challengerShips[0], +e.target.dataset.x, +e.target.dataset.y);
+
+            if (placeShip !== 'Success') return;
+
+            allCoords.forEach(coord => {
+                const modalEl = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
+                const chalEl = chalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
+                modalEl.classList.remove('shipOutline');
+                modalEl.classList.add('placed');
+                chalEl.classList.remove('shipOutline');
+                chalEl.classList.add('placed');
+            })
+            // Remove ship from array
+            challengerShips.shift();
+
+            // If no ships remaining in array, close modal
+            if (challengerShips.length < 1) {
+                modal.close();
+                return
+            }
+
+            // Update modal heading to current ship name
+            modalHeading.textContent = `Place your ${challengerShips[0].name}`;
+            
+        })
+    })
+
+    rotateBtn.addEventListener('click', (e) => {
+        const currentShip = challengerShips[0];
+        currentShip.isHorizontal ? currentShip.isHorizontal = false : currentShip.isHorizontal = true;
+    }
+
+    )
+
+
+});
+
 
 const getCoords = function(e) {
     const x = +`${e.target.dataset.x}`;
