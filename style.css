@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: "Big Shoulders Stencil Text", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
@@ -23,6 +23,7 @@ body {
 }
 
 h1 {
+    font-family: "Big Shoulders Stencil Text", sans-serif;
     text-transform: uppercase;
     font-size: 7rem; 
     letter-spacing: 3px;
@@ -40,9 +41,10 @@ footer {
     padding-block: 1rem;
 }
 
-.gameboard_container {
+.playing_zone {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-evenly;
     color: #333;
     background-color: rgba(255, 255, 255, 0.35);
     width: 70rem;
@@ -50,6 +52,22 @@ footer {
     border-radius: 10px;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
     padding: 2rem;
+}
+
+.gameboard_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.key {
+    display: flex;
+    align-self: center;
+    gap: 4rem;
+}
+
+.key_item {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .player {
@@ -66,6 +84,7 @@ footer {
 .name {
     text-align: center;
     margin-block-end: 2rem;
+    font-size: 1.6rem;
 }
 
 .grid {
@@ -78,8 +97,12 @@ footer {
 
 .grid_square {
     width: 30px;
-    aspect-ratio: 1;
+    height: 30px;
     border: 1px solid #333;
+    /* font-size: 2rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {
@@ -89,16 +112,20 @@ footer {
     border: none;
 }
 
+.placed {
+    background-color: #333;
+}
+
 .hit {
-    background-color: #e38ea7;
+    background-color: #fa9191;
 }
 
 .sunk {
-    background-color: #b40539;
+    background-color: #b60303;
 }
 
 .miss {
-    background-color: #6ee295;
+    background-color: #51b7d3;
 }
 
 .modal {
@@ -109,4 +136,15 @@ footer {
     border: none;
     padding: 2rem;
     top: 15%;
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.shipOutline {
+    background-color: #1c74a3;
 }

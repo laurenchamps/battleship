@@ -13,15 +13,37 @@
         <h1>Battleship</h1>
     </header>
     <main>
-        <section class="gameboard_container">
-            <section class="player player--challenger">
-                <h2 class="name" id="name--challenger">Challenger</h2>
-                <div class="grid" id="grid--challenger">
-                </div>
+        <section class="playing_zone">
+            <section class="gameboard_container">
+                <section class="player player--challenger">
+                    <h2 class="name" id="name--challenger">Friendly waters</h2>
+                    <div class="grid" id="grid--challenger">
+                    </div>
+                </section>
+                <section class="player player--computer">
+                    <h2 class="name" id="name--computer">Enemy waters</h2>
+                    <div class="grid" id="grid--computer">
+                    </div>
+                </section>
             </section>
-            <section class="player player--computer">
-                <h2 class="name" id="name--computer">Computer</h2>
-                <div class="grid" id="grid--computer">
+            <section class="key">
+                <div class="key_item">
+                    <div class="grid_square miss">
+                        <p class=>◦</p>
+                    </div>
+                    <p class="key">Miss</p>
+                </div>
+                <div class="key_item">
+                    <div class="grid_square hit">
+                        <p class=>💥</p>
+                    </div>
+                    <p class="key">Hit</p>
+                </div>
+                <div class="key_item">
+                    <div class="grid_square sunk">
+                        <p class=>☠️</p>
+                    </div>
+                    <p class="key">Sunk</p>
                 </div>
             </section>
         </section>
