@@ -308,7 +308,7 @@ compGridEl.addEventListener('click', function (e) {
     activePlayer = 1;
 
     if (!computerGameBoard.hasActiveShips()) {
-        winnerText.textContent = 'You win 🥳';
+        winnerText.textContent = 'You win! 🥳';
         modalGameOver.showModal();
     }
 
