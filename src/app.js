@@ -179,10 +179,13 @@ class App {
             parentEl.appendChild(gridRow);
             for (let j = 0; j < gameboard.columns; j++) {
                 const gridSquare = document.createElement('div');
+                const para = document.createElement('p');
+                para.classList.add('grid_content');
                 gridSquare.classList.add('grid_square');
                 gridSquare.dataset.x = i;
                 gridSquare.dataset.y = j;
                 
+                gridSquare.appendChild(para);
                 gridRow.appendChild(gridSquare);
             }
         }
@@ -272,6 +275,7 @@ const displayAttack = function(targetCoords, result) {
             sunkCoords.forEach(coord => {
                 if (+square.dataset.x == coord[0] && +square.dataset.y == coord[1]) {
                     square.classList.add('sunk');
+                    square.textContent = '☠️';
                 }  
             })  
         })             
@@ -281,6 +285,8 @@ const displayAttack = function(targetCoords, result) {
     gridSquares.forEach(square => {
         if (+square.dataset.x == targetCoords[0] && +square.dataset.y == targetCoords[1]) {
             square.classList.add(`${result[0]}`);
+            if (result[0] == 'hit') square.firstElementChild.textContent = '💥';
+            if (result[0] ==  'miss') square.firstElementChild.textContent = '◦';
         }
     })
 }
