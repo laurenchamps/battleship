@@ -204,8 +204,10 @@ const computerGameBoard = new GameBoard('computer', 10, 10);
 const chalGridEl = document.querySelector('#grid--challenger');
 const compGridEl = document.querySelector('#grid--computer');
 const modalGridEl = document.querySelector('#grid--modal');
-const modal = document.querySelector('.modal');
-const modalHeading = modal.querySelector('.modal-heading');
+const modalPlaceShips = document.querySelector('.modal--place_ships');
+const shipPrompt = modalPlaceShips.querySelector('.ship_prompt');
+const modalGameOver = document.querySelector('.modal--game_over');
+const winnerText = document.querySelector('.winner');
 
 /* 
 ----- Ship types ------
@@ -306,7 +308,8 @@ compGridEl.addEventListener('click', function (e) {
     activePlayer = 1;
 
     if (!computerGameBoard.hasActiveShips()) {
-        alert('You win!');
+        winnerText.textContent = 'You win 🥳';
+        modalGameOver.showModal();
     }
 
     // Take computer's turn
@@ -322,16 +325,17 @@ compGridEl.addEventListener('click', function (e) {
     }, 1000);
 
     if (!challengerGameBoard.hasActiveShips()) {
-        alert('Computer wins');
+        winnerText.textContent = 'Computer wins ☹️';
+        modalGameOver.showModal();
     }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     const challengerShips = [...shipTypes];
-    const rotateBtn = modal.querySelector('.btn--rotate');
-    modalHeading.textContent = `Place your ${challengerShips[0].name}`;
+    const rotateBtn = modalPlaceShips.querySelector('.btn--rotate');
+    shipPrompt.textContent = `Place your ${challengerShips[0].name}`;
 
-    modal.showModal();
+    modalPlaceShips.showModal();
     app.renderGameBoard(challengerGameBoard, modalGridEl);
 
     const modalGridSquares = [...modalGridEl.querySelectorAll('.grid_square')];
@@ -384,12 +388,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // If no ships remaining in array, close modal
             if (challengerShips.length < 1) {
-                modal.close();
+                modalPlaceShips.close();
                 return
             }
 
             // Update modal heading to current ship name
-            modalHeading.textContent = `Place your ${challengerShips[0].name}`;
+            shipPrompt.textContent = `Place your ${challengerShips[0].name}`;
             
         })
     })
