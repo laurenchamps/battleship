@@ -33,9 +33,17 @@ h2 {
     font-size: 2rem;
 }
 
+a:visited {
+    color: #fff;
+}
+
 header {
     padding-block: 1rem;
     text-align: center;
+}
+
+main {
+    flex-grow: 1;
 }
 
 footer {
@@ -45,20 +53,26 @@ footer {
 .playing_zone {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     color: #333;
     background-color: rgba(255, 255, 255, 0.35);
     width: 70rem;
-    height: 35rem;
+    height: 30rem;
     border-radius: 10px;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
     padding: 2rem;
 }
 
+.turn {
+    margin-top: 1.2rem;
+    font-size: 2rem;
+    /* font-family: "Big Shoulders Stencil Text", sans-serif; */
+}
+
 .gameboard_container {
     display: flex;
     justify-content: space-around;
-}
+} 
 
 .key {
     display: flex;
@@ -103,6 +117,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #8fc6e5;
+    cursor: crosshair;
 }
 
 .btn {
@@ -114,6 +130,10 @@ footer {
 
 .btn--rotate {
     border: 1px solid #333;
+}
+
+.shipHover {
+    background-color: #596062;
 }
 
 .placed {
@@ -129,7 +149,7 @@ footer {
 }
 
 .miss {
-    background-color: #51b7d3;
+    background-color: rgba(255, 255, 255, 0.35);
 }
 
 .modal {
@@ -146,10 +166,6 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.shipOutline {
-    background-color: #1c74a3;
 }
 
 .winner {
