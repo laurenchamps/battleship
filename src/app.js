@@ -253,7 +253,7 @@ class App {
             }, 1000);
         
             if (!challengerGameBoard.hasActiveShips()) {
-                winnerText.textContent = 'Computer wins ☹️';
+                winnerText.textContent = 'Computer wins 🙁';
                 modalGameOver.showModal();
             }
         }        
