@@ -13,13 +13,16 @@ const shipPrompt = modalPlaceShips.querySelector('.ship_prompt');
 const modalGameOver = document.querySelector('.modal--game_over');
 const winnerText = document.querySelector('.winner');
 const btnNewGame = document.querySelector('.btn--new');
+const turn = document.querySelector('.turn');
 
 class App {
     constructor() {
+        this.potentialTargets = [];
     }
 
     init() {
         activePlayer = 0;
+        turn.textContent = 'Your turn';
         challenger = new Player('challenger');
         computer = new Player('computer');
         challengerGameBoard = new GameBoard('challenger', GRID_SIZE, GRID_SIZE);
@@ -58,7 +61,7 @@ class App {
             
                 allCoords.forEach(coord => {
                     const el = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
-                    el.classList.add('shipOutline');
+                    el.classList.add('shipHover');
                 })
             })
         })
@@ -67,7 +70,7 @@ class App {
             square.addEventListener('mouseleave', () => {
                 allCoords.forEach(coord => {
                     const el = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
-                    el.classList.remove('shipOutline');
+                    el.classList.remove('shipHover');
                     allCoords = [];
                 })
             })
@@ -82,9 +85,9 @@ class App {
                 allCoords.forEach(coord => {
                     const modalEl = modalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
                     const chalEl = chalGridEl.querySelector(`[data-x="${coord[0]}"][data-y="${coord[1]}"]`);
-                    modalEl.classList.remove('shipOutline');
+                    modalEl.classList.remove('shipHover');
                     modalEl.classList.add('placed');
-                    chalEl.classList.remove('shipOutline');
+                    chalEl.classList.remove('shipHover');
                     chalEl.classList.add('placed');
                 })
                 // Remove ship from array
@@ -178,39 +181,82 @@ class App {
         })
     }
 
-    startGameLoop(e) {
-        if (activePlayer !== 0) return;
+    getPotentialTargets(coords) {
+        const adjacentCoords = [[coords[0], coords[1] + 1], [coords[0], coords[1] - 1], [coords[0] + 1, coords[1]], [coords[0] - 1, coords[1]]];
 
-        // Get coordinates of attack
-        const coords = app.getCoords(e);
-        // Attack
-        const result = challenger.attack(computerGameBoard, ...coords);
-        // Display result of attack in grid
-        app.displayAttack(coords, result);
-        // Set active player to opponent
-        activePlayer = 1;
-    
-        if (!computerGameBoard.hasActiveShips()) {
-            winnerText.textContent = 'You win! 🥳';
-            modalGameOver.showModal();
+        adjacentCoords.forEach(coord => {
+            if (coord[0] >= 0 && coord[0] <= GRID_SIZE - 1 && coord[1] >= 0 && coord[1] <= GRID_SIZE - 1) {
+                this.potentialTargets.push(coord);
+            }
+        });
+
+        return this.potentialTargets;
+    }
+
+    takeTurn(e, player) {
+        if (player === 'challenger') {
+
+            if (activePlayer !== 0) return;
+            // Get coordinates of attack
+            const challengerCoords = this.getCoords(e);
+            console.log(challengerCoords);
+            // Attack
+            const challengerResult = challenger.attack(computerGameBoard, ...challengerCoords);
+            // Display result of attack in grid
+            app.displayAttack(challengerCoords, challengerResult);
+            // Set active player to opponent
+            activePlayer = 1;
+            turn.textContent = 'Computer\'s turn';
+
+            if (!computerGameBoard.hasActiveShips()) {
+                winnerText.textContent = 'You win! 🥳';
+                modalGameOver.showModal();
+            }
         }
+
+        // Computer's turn
+        if (player === 'computer') {
+
+            if (activePlayer !== 1) return;
+
+            let compCoords, compResult;
+
+            if (this.potentialTargets.length > 0) {
+                do {
+                    // Get next target coords from list
+                    compCoords = this.potentialTargets.shift();
+                    console.log({compCoords});
+                    compResult = computer.attack(challengerGameBoard, ...compCoords);
+                    console.log({compResult});
+                } while (!compResult);
+            } else {
+                // Get random coordinates
+                compCoords = challengerGameBoard.generateRandomCoords();
+                compResult = computer.attack(challengerGameBoard, ...compCoords);
+            }
+           
+            if (compResult[0] === 'hit') {
+                const targets = this.getPotentialTargets(compResult[1]);
+                targets.forEach(target => {
+                    this.potentialTargets.push(target);
+                })
+            };
     
-        // Take computer's turn
-        if (activePlayer !== 1) return;
-        // Get random coordinates
-        const randomCoords = challengerGameBoard.generateRandomCoords();
-        // Attack
-        const compResult = computer.attack(challengerGameBoard, ...randomCoords);
-        // Display result of attack in grid after 1 sec delay
-        setTimeout(() => {
-            app.displayAttack(randomCoords, compResult, chalGridEl);
-            activePlayer = 0;
-        }, 1000);
-    
-        if (!challengerGameBoard.hasActiveShips()) {
-            winnerText.textContent = 'Computer wins ☹️';
-            modalGameOver.showModal();
-        }
+            if (compResult[0] === 'sunk') {
+                this.potentialTargets = [];
+            }
+            // Display result of attack in grid after 1 sec delay
+            setTimeout(() => {
+                app.displayAttack(compCoords, compResult, chalGridEl);
+                activePlayer = 0;
+                turn.textContent = 'Your turn';
+            }, 1000);
+        
+            if (!challengerGameBoard.hasActiveShips()) {
+                winnerText.textContent = 'Computer wins ☹️';
+                modalGameOver.showModal();
+            }
+        }        
     }
 
     getCoords = function(e) {
@@ -226,7 +272,9 @@ app.init();
 
 // Event listeners    
 compGridEl.addEventListener('click', function (e) {
-    app.startGameLoop(e);
+    if (activePlayer != 0) return;
+    app.takeTurn(e, 'challenger');
+    app.takeTurn(e, 'computer');
 });
 
 btnNewGame.addEventListener('click', function() {

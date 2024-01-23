@@ -24,13 +24,18 @@ class Player {
         }
 
         // Coordinates must not have previously received an attack
-        if (gameboard.grid[x][y].attacked) {
+        if (gameboard.grid[x][y].attacked && this.name === 'challenger') {
             alert('Target has already been attacked. Choose another target.');
             return;  
         }
 
+        if (gameboard.grid[x][y].attacked && this.name === 'computer') return;
+
         // Make attack
-        return gameboard.receiveAttack(x, y);
+        const attacked = gameboard.receiveAttack(x, y);
+        console.log(attacked);
+        return attacked;
+
     }
 }
 
