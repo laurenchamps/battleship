@@ -130,6 +130,7 @@ footer {
 
 .btn--rotate {
     border: 1px solid #333;
+    cursor: pointer;
 }
 
 .shipHover {
