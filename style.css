@@ -1,15 +1,15 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
@@ -23,152 +23,153 @@ body {
 }
 
 h1 {
-    font-family: "Big Shoulders Stencil Text", sans-serif;
-    text-transform: uppercase;
-    font-size: 7rem; 
-    letter-spacing: 3px;
+  font-family: 'Big Shoulders Stencil Text', sans-serif;
+  text-transform: uppercase;
+  font-size: 7rem;
+  letter-spacing: 3px;
 }
 
 h2 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 a:visited {
-    color: #fff;
+  color: #fff;
 }
 
 header {
-    padding-block: 1rem;
-    text-align: center;
+  padding-block: 1rem;
+  text-align: center;
 }
 
 main {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 footer {
-    padding-block: 1rem;
+  padding-block: 1rem;
 }
 
 .playing_zone {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    color: #333;
-    background-color: rgba(255, 255, 255, 0.35);
-    width: 70rem;
-    height: 30rem;
-    border-radius: 10px;
-    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
-    padding: 2rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.35);
+  width: 70rem;
+  height: 30rem;
+  border-radius: 10px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+  padding: 2rem;
 }
 
 .turn {
-    margin-top: 1.2rem;
-    font-size: 2rem;
-    /* font-family: "Big Shoulders Stencil Text", sans-serif; */
+  margin-top: 1.2rem;
+  font-size: 2rem;
+  /* font-family: "Big Shoulders Stencil Text", sans-serif; */
 }
 
 .gameboard_container {
-    display: flex;
-    justify-content: space-around;
-} 
+  display: flex;
+  justify-content: space-around;
+}
 
 .key {
-    display: flex;
-    align-self: center;
-    gap: 4rem;
+  display: flex;
+  align-self: center;
+  gap: 4rem;
 }
 
 .key_item {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .player {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .player--1 {
-    opacity: 1;
+  opacity: 1;
 }
 
 .name {
-    text-align: center;
-    margin-block-end: 2rem;
-    font-size: 1.6rem;
+  text-align: center;
+  margin-block-end: 2rem;
+  font-size: 1.6rem;
 }
 
 .grid {
-    border: 1px solid #333;
+  border: 1px solid #333;
 }
 
 .grid_row {
-    display: flex;
+  display: flex;
 }
 
 .grid_square {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #8fc6e5;
-    cursor: crosshair;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8fc6e5;
+  cursor: crosshair;
 }
 
 .btn {
-    margin: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    border: none;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  border: none;
 }
 
 .btn--rotate {
-    border: 1px solid #333;
-    cursor: pointer;
+  border: 1px solid #333;
+  cursor: pointer;
 }
 
 .shipHover {
-    background-color: #596062;
+  background-color: #596062;
 }
 
 .placed {
-    background-color: #333;
+  background-color: #333;
 }
 
 .hit {
-    background-color: #fa9191;
+  background-color: #fa9191;
 }
 
 .sunk {
-    background-color: #b60303;
+  background-color: #b60303;
 }
 
 .miss {
-    background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.35);
 }
 
 .modal {
-    max-width: 80%;
-    margin: 0 auto;
-    background-color: var(#dad8d8);
-    color: var(#fff);
-    border: none;
-    padding: 2rem;
-    top: 15%;
+  max-width: 80%;
+  margin: 0 auto;
+  background-color: var(#dad8d8);
+  color: var(#fff);
+  border: none;
+  padding: 2rem;
+  top: 15%;
 }
 
 .header--place_ships {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .winner {
-    text-align: center;
+  text-align: center;
 }
